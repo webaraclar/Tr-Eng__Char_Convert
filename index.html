@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="https://github.com/webaraclar">
+	<title>Tr-Eng Karakter Dönüşümü</title>
+	<style>
+		.icerik,
+		button {
+			border: solid;
+			border-width: 2px;
+			padding: 8px;
+			width: auto;
+			border-color: rgb(24, 110, 185);
+
+		}
+
+		button,
+		textarea {
+			font-size: 20px;
+		}
+	</style>
+</head>
+
+<body style="text-align: center;">
+	<h2>Türkçe'de yer alan özel karakterleri İngiliz alfabesine göre dönüştürün. </h2>
+	<div id="ana_govde">
+		<div id="tr">
+			<h3>Türkçe içeriği giriniz:</h3>
+			<textarea class="icerik" name="turkce_icerik" rows="5" cols="50" required></textarea>
+			<br><br>
+			<button onclick="trToEng()">Tr->Eng Çevir</button>
+		</div>
+		<br>
+		<div id="eng">
+			<h3>Sonuç</h3>
+			<textarea class="icerik" name="ingilizce_icerik" rows="5" cols="50"></textarea>
+			<br><br>
+			<button onclick="kopyala()">Kopyala</button>
+		</div>
+	</div>
+</body>
+<script>
+	function trToEng() {
+		const tr = [String.fromCharCode(199), String.fromCharCode(231), String.fromCharCode(287), String.fromCharCode(286), String.fromCharCode(305), String.fromCharCode(304), String.fromCharCode(246), String.fromCharCode(214), String.fromCharCode(351), String.fromCharCode(350), String.fromCharCode(252), String.fromCharCode(220)];
+		const eng = [String.fromCharCode(67), String.fromCharCode(99), String.fromCharCode(103), String.fromCharCode(71), String.fromCharCode(105), String.fromCharCode(73), String.fromCharCode(111), String.fromCharCode(79), String.fromCharCode(115), String.fromCharCode(83), String.fromCharCode(117), String.fromCharCode(85)];
+		let trYazi = document.getElementsByClassName("icerik")[0].value;
+
+		function tr_eng(metin, tr, eng) {
+			for (i = 0; i < tr.length; i++) {
+				metin = metin.replaceAll(tr[i], eng[i]);
+			}
+			return metin;
+		}
+		let sonuc = tr_eng(trYazi, tr, eng);
+		document.getElementsByClassName("icerik")[1].value = sonuc;
+	}
+
+	function kopyala() {
+		let kopyala = document.getElementsByClassName("icerik")[1].value;
+		const clipBoard = navigator.clipboard;
+		clipBoard.writeText(kopyala).then(() => {
+			alert("Metin Kopyalandı")
+		});
+	}
+</script>
+
+</html>
